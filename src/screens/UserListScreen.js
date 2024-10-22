@@ -3,18 +3,18 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { FlatList, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { userStore } from '../models/UserStore'; // Using shared store
+import { userStore } from '../models/UserStore'; 
 
 const UserListScreen = observer(() => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    userStore.fetchUsers(); // Fetch users on component mount
+    userStore.fetchUsers();
   }, []);
 
   const loadMoreUsers = () => {
     if (!userStore.isLoading) {
-      userStore.fetchUsers(); // Add pagination logic here if needed
+      userStore.fetchUsers(); 
     }
   };
 
@@ -35,11 +35,11 @@ const UserListScreen = observer(() => {
 
   return (
     <FlatList
-      data={userStore.users.slice()}  // Convert MobX observable array to plain array
+      data={userStore.users.slice()}  
       renderItem={renderItem}
       keyExtractor={(item) => item.id.toString()}
-      onEndReached={loadMoreUsers}    // Infinite scrolling trigger
-      onEndReachedThreshold={0.5}     // Trigger when 50% from the bottom
+      onEndReached={loadMoreUsers}    
+      onEndReachedThreshold={0.5}    
       ListFooterComponent={userStore.isLoading ? <ActivityIndicator size="small" /> : null}
     />
   );
